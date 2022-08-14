@@ -16,6 +16,6 @@
             </Label>
          </children>
       </AnchorPane>
-      <JFXTextArea fx:id="txtAreaPane" editable="false" focusColor="PINK" layoutX="12.0" layoutY="58.0" prefHeight="377.0" prefWidth="580.0" style="-fx-text-fill: pink;" text="Hellow!" unFocusColor="PINK" />
+      <JFXTextArea fx:id="txtAreaPane" editable="false" focusColor="PINK" layoutX="12.0" layoutY="58.0" prefHeight="377.0" prefWidth="580.0" style="-fx-text-fill: pink; -fx-line-spacing: 10px;" unFocusColor="PINK" />
    </children>
 </AnchorPane>

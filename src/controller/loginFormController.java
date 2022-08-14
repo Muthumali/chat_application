@@ -36,7 +36,7 @@ public class loginFormController {
 
         }
         Users.add(user);
-
+        txtUserName.clear();
 
     }
 
