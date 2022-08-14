@@ -8,7 +8,7 @@ public class serverInitializer extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setScene
-                (new Scene(FXMLLoader.load(getClass().getResource("serverForm.fxml"))));
+                (new Scene(FXMLLoader.load(getClass().getResource("view/serverFormm.fxml"))));
         primaryStage.show();
     }
 }

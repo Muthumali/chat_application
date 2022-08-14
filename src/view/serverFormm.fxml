@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="453.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.serverController">
+   <children>
+      <AnchorPane fx:id="serverContext" layoutX="-2.0" prefHeight="47.0" prefWidth="606.0" style="-fx-background-color: pink;">
+         <children>
+            <Label layoutX="253.0" layoutY="6.0" text="Server">
+               <font>
+                  <Font name="Pagul" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <JFXTextArea fx:id="txtAreaPane" editable="false" focusColor="PINK" layoutX="12.0" layoutY="58.0" prefHeight="377.0" prefWidth="580.0" style="-fx-text-fill: pink;" text="Hellow!" unFocusColor="PINK" />
+   </children>
+</AnchorPane>
