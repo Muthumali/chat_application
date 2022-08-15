@@ -1,50 +1,75 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import javafx.geometry.NodeOrientation;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-
 import java.io.*;
 import java.net.Socket;
-
-public class clientController {
+import java.nio.charset.StandardCharsets;
+import static controller.loginFormController.username;
+public class clientController extends Thread{
     public TextArea txtClientPane;
     public JFXTextField txtClientMessage;
     public AnchorPane clientContext;
-    public Label txtClientName;
+    public  Label txtClientName;
     public VBox vBoxPaneClinet;
-
     Socket socket=null;
-    public void initialize() throws IOException {
-            new Thread(() -> {
-                try {
-                    socket = new Socket("localhost", 5000);
-                        InputStreamReader inputStreamReader =
-                                new InputStreamReader(socket.getInputStream());
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String record = bufferedReader.readLine();
-                        System.out.println(record);
-                        txtClientPane.appendText(record);
+    PrintWriter printWriter;
 
+    private BufferedReader bufferedReader;
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
-
-
+    public void initialize(){
+        connectSocket();
+        txtClientName.setText(username);
     }
 
+    private void connectSocket() {
+        try {
+            socket = new Socket("localhost", 5001);
+            System.out.println("Connect With Server");
+
+            bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+            printWriter = new PrintWriter(socket.getOutputStream(), true);
+
+            this.start();
+
+        } catch (IOException e) {
+
+        }
+    }
+
+    public void run() {
+        try {
+            while (true) {
+                String msg = bufferedReader.readLine();
+                System.out.println("Message : " + msg);
+                String[] tokens = msg.split(" ");
+                String cmd = tokens[0];
+                System.out.println("cmd : " + cmd);
+                StringBuilder fulmsg = new StringBuilder();
+                for (int i = 1; i < tokens.length; i++) {
+                    fulmsg.append(tokens[i]);
+                }
+                System.out.println("fulmsg : " + fulmsg);
+                System.out.println();
+                if (cmd.equalsIgnoreCase(username + ":")) {
+                    continue;
+                } else if (fulmsg.toString().equalsIgnoreCase("bye")) {
+                    break;
+                }
+                txtClientPane.appendText(msg + "\n");
+            }
+            bufferedReader.close();
+            printWriter.close();
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void addImageOnAction(MouseEvent mouseEvent) {
 
@@ -55,38 +80,17 @@ public class clientController {
     }
 
     public void sendOnMsgOnaction(MouseEvent mouseEvent) throws IOException {
-       PrintWriter printWriter= new PrintWriter(socket.getOutputStream());
-        printWriter.println(txtClientMessage.getText());
-        txtClientPane.appendText(txtClientMessage.getText()+"\n");
-       /* txtClientPane.setStyle("-fx-background-radius: 20px");
-        txtClientPane.setStyle("-fx-color: rgb(15,125,242)");*/
-        printWriter.flush();
-       /* DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
-        dataOutputStream.writeUTF(txtClientMessage.getText());
-        txtClientPane.appendText();*/
-
-        txtClientMessage.clear();
-
-
-       /* PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
-        String messageToSend = txtClientMessage.getText();
-        printWriter.println(txtClientMessage.getText());
-        if (!txtClientMessage.getText().equals("exit")&& !txtClientMessage.getText().isEmpty()){
-            HBox hBox=new HBox();
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            hBox.setPadding(new Insets(5,5,5,10));
-            Text text=new Text(messageToSend);
-            TextFlow textFlow=new TextFlow(text);
-            textFlow.setStyle("-fx-color:rgb(239,242,255);"
-                    +"-fx-background-color: rgb(15,125,242);"+
-                    "-fx-background-radius: 20px");
-            textFlow.setPadding(new Insets(5,10,5,10));
-            text.setFill(Color.color(0.934,0.945,0.996));
-            hBox.getChildren().add(textFlow);
-            vBoxPaneClinet.getChildren().add(hBox);
-            // txtClientPane.appendText(String.valueOf(text));
-            printWriter.flush();
-            txtClientMessage.clear();
-        }*/
+        send();
     }
+    public void send() {
+        String msg = txtClientMessage.getText();
+        printWriter.println(username + ": " + msg);
+        txtClientPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        txtClientPane.appendText("Me: " + msg + "\n");
+        txtClientMessage.setText("");
+        if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
+            System.exit(0);
+        }
+    }
+
 }
