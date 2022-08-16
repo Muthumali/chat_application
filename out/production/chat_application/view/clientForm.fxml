@@ -2,59 +2,49 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="clientContext" prefHeight="489.0" prefWidth="726.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.clientController">
    <children>
-      <AnchorPane prefHeight="497.0" prefWidth="190.0" style="-fx-background-color: pink;">
-         <children>
-            <Label layoutX="11.0" layoutY="7.0" text="Chat Room" textFill="#9e0f4d">
-               <font>
-                  <Font name="Tlwg Mono Bold" size="31.0" />
-               </font>
-            </Label>
-            <Separator layoutX="9.0" layoutY="49.0" prefHeight="2.0" prefWidth="178.0" />
-            <Label fx:id="txtClientName" layoutX="66.0" layoutY="60.0" prefHeight="42.0" prefWidth="77.0" text="Client">
-               <font>
-                  <Font name="P052-Bold" size="22.0" />
-               </font></Label>
-            <ImageView fitHeight="17.0" fitWidth="10.0" layoutX="37.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/36-368862_green-ball-clip-art-at-clker-com-vector.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="211.0" fitWidth="144.0" layoutX="17.0" layoutY="129.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../assets/Chatting-Transparent-Images-PNG.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="19.0" layoutY="460.0" text="Version 1.0.0">
-               <font>
-                  <Font name="Pagul" size="21.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
-      <TextArea fx:id="txtClientPane" editable="false" layoutX="201.0" layoutY="9.0" prefHeight="416.0" prefWidth="513.0" style="-fx-background-color: pink;" />
-      <JFXTextField fx:id="txtClientMessage" focusColor="BLACK" labelFloat="true" layoutX="199.0" layoutY="445.0" prefHeight="26.0" prefWidth="342.0" promptText="Type Massage" unFocusColor="PINK" />
+      <TextArea fx:id="txtClientPane" editable="false" layoutX="5.0" layoutY="60.0" prefHeight="365.0" prefWidth="716.0" style="-fx-background-color: #1abc9c;" />
+      <JFXTextField fx:id="txtClientMessage" focusColor="BLACK" labelFloat="true" layoutX="5.0" layoutY="445.0" prefHeight="26.0" prefWidth="536.0" promptText="Type Massage" unFocusColor="#1abc9c" />
       <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="556.0" layoutY="437.0" onMouseClicked="#sendImageAction" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/icons8-camera-100.png" />
+            <Image url="@../assets/icons8-camera-90.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="615.0" layoutY="437.0" onMouseClicked="#SendEmojiAction" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="42.0" fitWidth="42.0" layoutX="615.0" layoutY="437.0" onMouseClicked="#SendEmojiAction" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/icons8-emoji-100.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="42.0" fitWidth="46.0" layoutX="670.0" layoutY="437.0" onMouseClicked="#sendOnMsgOnaction" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../assets/icons8-smiley-100.png" />
+         </image></ImageView>
+      <ImageView fitHeight="42.0" fitWidth="52.0" layoutX="670.0" layoutY="437.0" onMouseClicked="#sendOnMsgOnaction" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/icons8-sent-90.png" />
+            <Image url="@../assets/icons8-send-100.png" />
          </image>
       </ImageView>
+      <VBox fx:id="vBoxPane" layoutX="12.0" layoutY="70.0" prefHeight="350.0" prefWidth="703.0" style="-fx-min-height: 320px;" />
+      <AnchorPane layoutY="-1.0" prefHeight="51.0" prefWidth="728.0" style="-fx-background-color: #1abc9c;">
+         <children>
+            <Label fx:id="txtClientName" layoutX="56.0" layoutY="12.0" prefHeight="29.0" prefWidth="200.0" text="Client">
+               <font>
+                  <Font name="P052-Bold" size="18.0" />
+               </font></Label>
+            <ImageView fitHeight="51.0" fitWidth="42.0" layoutX="14.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/icons8-male-user-100.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="463.0" layoutY="3.0" prefHeight="42.0" prefWidth="271.0" text="Play Tech Pvt Ltd">
+               <font>
+                  <Font name="Tlwg Mono Bold" size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

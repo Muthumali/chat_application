@@ -1,6 +1,7 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
@@ -13,6 +14,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -59,26 +63,45 @@ public class clientController extends Thread{
         }
     }
 
+    String cmd;
     public void run() {
         try {
             while (true) {
                 String msg = bufferedReader.readLine();
                 System.out.println("Message : " + msg);
                 String[] tokens = msg.split(" ");
-                String cmd = tokens[0];
+                cmd = tokens[0];
                 System.out.println("cmd : " + cmd);
-                StringBuilder fulshMassge = new StringBuilder();
+                StringBuilder fulmsg = new StringBuilder();
                 for (int i = 1; i < tokens.length; i++) {
-                    fulshMassge.append(tokens[i]);
+                    fulmsg.append(tokens[i]);
                 }
-                System.out.println("fulshMassage : " + fulshMassge);
+                System.out.println("fullmsg : " + fulmsg);
+
                 System.out.println();
-                if (cmd.equalsIgnoreCase(username + ":")) {
+                if (cmd.equalsIgnoreCase(loginFormController.username + " : ")) {
                     continue;
-                } else if (fulshMassge.toString().equalsIgnoreCase("bye")) {
+                } else if (fulmsg.toString().equalsIgnoreCase("bye")) {
                     break;
                 }
-                txtClientPane.appendText(msg + "\n");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        HBox hBox = new HBox();
+                        hBox.setAlignment(Pos.CENTER_RIGHT);
+                        hBox.setPadding(new Insets(5, 10, 5, 5));
+                        Text text = new Text(msg);
+                        TextFlow textFlow = new TextFlow(text);
+                        textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                                + "-fx-background-color: rgb(72,80,70);" +
+                                "-fx-background-radius: 10px");
+                        textFlow.setPadding(new Insets(5, 0, 5, 5));
+                        text.setFill(Color.color(0.934, 0.945, 0.996));
+                        hBox.getChildren().add(textFlow);
+                        vBoxPane.getChildren().add(hBox);
+
+                    }
+                });
             }
             bufferedReader.close();
             printWriter.close();
@@ -87,7 +110,6 @@ public class clientController extends Thread{
             e.printStackTrace();
         }
     }
-    
 
     public void sendOnMsgOnaction(MouseEvent mouseEvent) throws IOException {
         send();
@@ -96,10 +118,19 @@ public class clientController extends Thread{
         if(!txtClientMessage.getText().equalsIgnoreCase("")) {
             String msg = txtClientMessage.getText();
             printWriter.println(username + ": " + msg);
-            txtClientPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-            txtClientPane.setStyle("-fx-text-fill: blue;");
-            txtClientPane.appendText("Me: " + msg + "\n");
-            txtClientMessage.setText("");
+            HBox hBox = new HBox();
+            hBox.setAlignment(Pos.CENTER_RIGHT);
+            hBox.setPadding(new Insets(5, 5, 5, 10));
+            Text text = new Text("Me : "+msg);
+            TextFlow textFlow = new TextFlow(text);
+            textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                    + "-fx-background-color: rgb(15,125,242);" +
+                    "-fx-background-radius: 20px");
+            textFlow.setPadding(new Insets(5, 10, 5, 10));
+            text.setFill(Color.color(0.934, 0.945, 0.996));
+            hBox.getChildren().add(textFlow);
+            vBoxPane.getChildren().add(hBox);
+            printWriter.flush();
             if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
                 System.exit(0);
             }
