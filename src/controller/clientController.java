@@ -29,7 +29,7 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import static controller.loginFormController.username;
-public class clientController extends Thread{
+public class clientController extends Thread {
     public TextArea txtClientPane;
     public JFXTextField txtClientMessage;
     public AnchorPane clientContext;
@@ -70,38 +70,21 @@ public class clientController extends Thread{
                 String msg = bufferedReader.readLine();
                 System.out.println("Message : " + msg);
                 String[] tokens = msg.split(" ");
-                cmd = tokens[0];
+                String cmd = tokens[0];
                 System.out.println("cmd : " + cmd);
                 StringBuilder fulmsg = new StringBuilder();
                 for (int i = 1; i < tokens.length; i++) {
                     fulmsg.append(tokens[i]);
                 }
-                System.out.println("fullmsg : " + fulmsg);
-
+                System.out.println("fulmsg : " + fulmsg);
                 System.out.println();
-                if (cmd.equalsIgnoreCase(loginFormController.username + " : ")) {
+                if (cmd.equalsIgnoreCase(loginFormController.username + ":")) {
                     continue;
                 } else if (fulmsg.toString().equalsIgnoreCase("bye")) {
                     break;
                 }
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        HBox hBox = new HBox();
-                        hBox.setAlignment(Pos.CENTER_RIGHT);
-                        hBox.setPadding(new Insets(5, 10, 5, 5));
-                        Text text = new Text(msg);
-                        TextFlow textFlow = new TextFlow(text);
-                        textFlow.setStyle("-fx-color:rgb(239,242,255);"
-                                + "-fx-background-color: rgb(72,80,70);" +
-                                "-fx-background-radius: 10px");
-                        textFlow.setPadding(new Insets(5, 0, 5, 5));
-                        text.setFill(Color.color(0.934, 0.945, 0.996));
-                        hBox.getChildren().add(textFlow);
-                        vBoxPane.getChildren().add(hBox);
-
-                    }
-                });
+                txtClientPane.setStyle("-fx-text-fill: green;-fx-font-size : 20px;");
+                txtClientPane.appendText(msg + "\n");
             }
             bufferedReader.close();
             printWriter.close();
@@ -115,26 +98,16 @@ public class clientController extends Thread{
         send();
     }
     public void send() {
-        if(!txtClientMessage.getText().equalsIgnoreCase("")) {
-            String msg = txtClientMessage.getText();
-            printWriter.println(username + ": " + msg);
-            HBox hBox = new HBox();
-            hBox.setAlignment(Pos.CENTER_RIGHT);
-            hBox.setPadding(new Insets(5, 5, 5, 10));
-            Text text = new Text("Me : "+msg);
-            TextFlow textFlow = new TextFlow(text);
-            textFlow.setStyle("-fx-color:rgb(239,242,255);"
-                    + "-fx-background-color: rgb(15,125,242);" +
-                    "-fx-background-radius: 20px");
-            textFlow.setPadding(new Insets(5, 10, 5, 10));
-            text.setFill(Color.color(0.934, 0.945, 0.996));
-            hBox.getChildren().add(textFlow);
-            vBoxPane.getChildren().add(hBox);
-            printWriter.flush();
-            if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
-                System.exit(0);
-            }
+        String msg = txtClientMessage.getText();
+        printWriter.println(loginFormController.username + ": " + msg);
+        txtClientPane.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        txtClientPane.setStyle("-fx-text-fill: blue;-fx-font-size : 20px;");
+        txtClientPane.appendText("Me: " + msg + "\n");
+        txtClientMessage.setText("");
+        if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
+            System.exit(0);
         }
+
     }
 
     public void sendImageAction(MouseEvent mouseEvent) throws IOException, InterruptedException {
