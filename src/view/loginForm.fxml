@@ -45,16 +45,6 @@
                   <Image url="@../assets/de05947ad1f301937a23508b05eac2f8.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="87.0" fitWidth="115.0" layoutX="66.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/love-icon-png-freepic-13-1.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="87.0" fitWidth="115.0" layoutX="207.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../assets/love-icon-png-freepic-13-1.png" />
-               </image>
-            </ImageView>
          </children></AnchorPane>
    </children>
 </AnchorPane>
