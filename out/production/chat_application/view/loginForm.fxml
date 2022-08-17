@@ -40,9 +40,9 @@
                </font>
             </Label>
             <Separator layoutX="15.0" layoutY="67.0" prefHeight="4.0" prefWidth="341.0" />
-            <ImageView fitHeight="348.0" fitWidth="224.0" layoutX="109.0" layoutY="224.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="374.0" fitWidth="319.0" layoutX="14.0" layoutY="80.0" pickOnBounds="true">
                <image>
-                  <Image url="@../assets/de05947ad1f301937a23508b05eac2f8.png" />
+                  <Image url="@../assets/ezgif-2-1b9d754a17.png" />
                </image>
             </ImageView>
          </children></AnchorPane>

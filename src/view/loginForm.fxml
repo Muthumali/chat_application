@@ -40,14 +40,9 @@
                </font>
             </Label>
             <Separator layoutX="15.0" layoutY="67.0" prefHeight="4.0" prefWidth="341.0" />
-            <ImageView fitHeight="136.0" fitWidth="109.0" layoutX="31.0" layoutY="83.0" pickOnBounds="true">
+            <ImageView fitHeight="374.0" fitWidth="319.0" layoutX="14.0" layoutY="80.0" pickOnBounds="true">
                <image>
-                  <Image url="@../assets/1391034.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="198.0" fitWidth="218.0" layoutX="115.0" layoutY="234.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../assets/webcam-chat.png" />
+                  <Image url="@../assets/ezgif-2-1b9d754a17.png" />
                </image>
             </ImageView>
          </children></AnchorPane>
