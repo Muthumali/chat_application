@@ -1,17 +1,11 @@
 package controller;
 
 import com.jfoenix.controls.JFXTextField;
-import com.sun.glass.ui.Application;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,26 +13,27 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.awt.*;
+
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+
 import static controller.loginFormController.username;
 public class clientController extends Thread {
-    public TextArea txtClientPane;
     public JFXTextField txtClientMessage;
     public AnchorPane clientContext;
     public  Label txtClientName;
     public AnchorPane emojiContext;
     public ImageView emoBtn;
-    public VBox vBoxPane;
+    public VBox vboxMessageFlow;
+    public ImageView emoji1;
     Socket socket=null;
     PrintWriter printWriter;
     URL url;
@@ -109,7 +104,7 @@ public class clientController extends Thread {
                             textFlow.setPadding(new Insets(5, 0, 5, 5));
                             text.setFill(Color.color(0, 0, 0));
                             hBox.getChildren().add(textFlow);
-                            vBoxPane.getChildren().add(hBox);
+                            vboxMessageFlow.getChildren().add(hBox);
                         }
 
                         if (fulmsg.toString().endsWith(".png") || fulmsg.toString().endsWith(".jpg") || fulmsg.toString().endsWith(".jpeg") || fulmsg.toString().endsWith(".gif")) {
@@ -130,7 +125,7 @@ public class clientController extends Thread {
                             textFlow.setPadding(new Insets(5, 0, 5, 5));
 
                             hBox.getChildren().add(textFlow);
-                            vBoxPane.getChildren().add(hBox);
+                            vboxMessageFlow.getChildren().add(hBox);
                         }
                     }
 
@@ -164,7 +159,7 @@ public class clientController extends Thread {
         textFlow.setPadding(new Insets(5, 10, 5, 10));
         text.setFill(Color.color(0.934, 0.945, 0.996));
         hBox.getChildren().add(textFlow);
-        vBoxPane.getChildren().add(hBox);
+        vboxMessageFlow.getChildren().add(hBox);
         printWriter.flush();
         txtClientMessage.setText("");
         if (msg.equalsIgnoreCase("BYE") || (msg.equalsIgnoreCase("logout"))) {
@@ -194,7 +189,7 @@ public class clientController extends Thread {
             VBox vBox = new VBox(imageView);
             vBox.setAlignment(Pos.CENTER_RIGHT);
             vBox.setPadding(new Insets(5, 10, 5, 5));
-            vBoxPane.getChildren().add(vBox);
+            vboxMessageFlow.getChildren().add(vBox);
         }
 
     }
@@ -208,87 +203,29 @@ public class clientController extends Thread {
         emojiContext.setVisible(!emojiContext.isVisible());
 
     }
-    public void Send3EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void SendOneEmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send10EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send6EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Sen2EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send9EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send4EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send5EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send15EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send12EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send7EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send8EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send11EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send14EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send20emojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send18EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send19EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send17EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send16EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
-
-    public void Send13EmojiOnActoion(MouseEvent mouseEvent) {
-        sendEmoji();
-    }
     public void sendEmoji(){
        txtClientMessage.appendText("\uD83D\uDE42");
     }
 
+    public void allSendEmojiOnAction(MouseEvent mouseEvent) throws MalformedURLException {
+        if (mouseEvent.getSource ( ) instanceof ImageView) {
+            ImageView icon = (ImageView) mouseEvent.getSource();
+            switch (icon.getId()){
+                case "emoji1":
+                    String e1="\\uD83D\\uDE42";
+                   // txtClientMessage.setText(.unescapeJava(e1);
+
+                    //txtClientMessage.appendText("\uD83D\uDE42");
+/*
+File file= new File("assets/emojis/1.png");
+                  ImageView imageView =new ImageView("assets/emojis/1.png");
+                    imageView.setFitWidth(20);
+                    imageView.setFitHeight(20);
+                    vboxMessageFlow.getChildren().add(imageView);
+                    printWriter.println(username + ": " + file.toURI().toURL());
+*/
+                    break;
+            }
+        }
+    }
 }
