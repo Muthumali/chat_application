@@ -45,30 +45,20 @@ public class clientController extends Thread {
     String msg;
 
 
-    public void initialize() throws IOException {
+    public void initialize(){
         emojiContext.setVisible(false);
         connectSocket();
         txtClientName.setText(username);
-
-            }
-
-
+    }
     private void connectSocket() {
         try {
             socket = new Socket("localhost", 5001);
             System.out.println("Connect With Server");
-
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
             printWriter = new PrintWriter(socket.getOutputStream(), true);
-
             this.start();
-
-        } catch (IOException e) {
-
-        }
+        } catch (IOException e) {}
     }
-
-    String cmd;
     public void run() {
         try {
             while (true) {
@@ -92,21 +82,6 @@ public class clientController extends Thread {
                     @Override
                     public void run() {
                         HBox hBox = new HBox();
-                        if (!fulmsg.toString().endsWith(".png") || !fulmsg.toString().endsWith(".jpg") || !fulmsg.toString().endsWith(".jpeg") || !fulmsg.toString().endsWith(".gif")) {
-                            hBox.setAlignment(Pos.CENTER_LEFT);
-                            hBox.setPadding(new Insets(5, 10, 5, 5));
-                            Text text = new Text(msg);
-                            text.setStyle("-fx-font-size: 15px");
-                            TextFlow textFlow = new TextFlow(text);
-                            textFlow.setStyle("-fx-color:rgb(239,242,255);"
-                                    + "-fx-background-color: rgb(182,182,182);" +
-                                    "-fx-background-radius: 10px");
-                            textFlow.setPadding(new Insets(5, 0, 5, 5));
-                            text.setFill(Color.color(0, 0, 0));
-                            hBox.getChildren().add(textFlow);
-                            vboxMessageFlow.getChildren().add(hBox);
-                        }
-
                         if (fulmsg.toString().endsWith(".png") || fulmsg.toString().endsWith(".jpg") || fulmsg.toString().endsWith(".jpeg") || fulmsg.toString().endsWith(".gif")) {
                             System.out.println(fulmsg);
                             hBox.setAlignment(Pos.TOP_LEFT);
@@ -126,12 +101,22 @@ public class clientController extends Thread {
 
                             hBox.getChildren().add(textFlow);
                             vboxMessageFlow.getChildren().add(hBox);
+                        }else {
+                            hBox.setAlignment(Pos.CENTER_LEFT);
+                            hBox.setPadding(new Insets(5, 10, 5, 5));
+                            Text text = new Text(msg);
+                            text.setStyle("-fx-font-size: 15px");
+                            TextFlow textFlow = new TextFlow(text);
+                            textFlow.setStyle("-fx-color:rgb(239,242,255);"
+                                    + "-fx-background-color: rgb(182,182,182);" +
+                                    "-fx-background-radius: 10px");
+                            textFlow.setPadding(new Insets(5, 0, 5, 5));
+                            text.setFill(Color.color(0, 0, 0));
+                            hBox.getChildren().add(textFlow);
+                            vboxMessageFlow.getChildren().add(hBox);
                         }
                     }
-
                 });
-
-
             }
             bufferedReader.close();
             printWriter.close();
@@ -191,7 +176,6 @@ public class clientController extends Thread {
             vBox.setPadding(new Insets(5, 10, 5, 5));
             vboxMessageFlow.getChildren().add(vBox);
         }
-
     }
     public void SendEmojiAction(MouseEvent e) throws IOException {
       /*  Parent root = FXMLLoader.load(this.getClass().getResource("../view/emojiPaneF.fxml"));
